@@ -3,7 +3,7 @@
   tags:
     - upstart
   template: src=upstart.conf.j2 dest=/etc/init/{{ service_name }}.conf
-  sudo: yes
+  become: yes
 
 - name: Make sure log directory exists with correct permissions
   tags:
@@ -14,11 +14,11 @@
     owner={{ service_user }}
     group={{ service_user }}
     mode=u+rw
-  sudo: yes
+  become: yes
 
 - name: Restart service
   tags:
     - upstart
   service: name={{ service_name }} state=restarted
-  sudo: yes
+  become: yes
   when: service_restart
